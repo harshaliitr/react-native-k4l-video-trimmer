@@ -21,10 +21,10 @@ export function multiply(a: number, b: number): Promise<number> {
   return K4lVideoTrimmer.multiply(a, b);
 }
 
-export function navigateToTrimmer(uri: string): void {
-  try {
+export function navigateToTrimmer(uri: string): Promise<string> {
+  // try {
     return K4lVideoTrimmer.navigateToTrimmer(uri);
-  } catch (error) {
-    console.log(JSON.stringify(error));
-  }
+  // } catch (error) {
+  //   console.log(JSON.stringify(error));
+  // }
 }

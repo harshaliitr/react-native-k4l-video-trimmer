@@ -1,5 +1,6 @@
 package com.reactnativek4lvideotrimmer;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -48,71 +49,36 @@ public class TrimmerActivity extends ReactActivity implements OnTrimVideoListene
   @Override
   public void getResult(Uri uri) {
     mProgressDialog.cancel();
-//    var name = K4lVideoTrimmerModule.getName();
     runOnUiThread(new Runnable() {
       @Override
       public void run() {
         Toast.makeText(TrimmerActivity.this, getString(R.string.video_saved_at, uri.getPath()), Toast.LENGTH_LONG).show();
       }
     });
-//    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-//    intent.setDataAndType(uri, "video/mp4");
-//    startActivity(intent);
+    Intent returnIntent = new Intent();
+    returnIntent.putExtra("result",uri.getPath());
+    returnIntent.setDataAndType(uri, "video/mp4");
+    setResult(Activity.RESULT_OK, returnIntent);
     finish();
   }
 
   @Override
   public void cancelAction() {
-
+    Intent returnIntent = new Intent();
+    setResult(Activity.RESULT_CANCELED, returnIntent);
+    finish();
   }
 
   @Override
   public void onError(String message) {
-
+    Intent returnIntent = new Intent();
+    returnIntent.putExtra("error", message);
+    setResult(2, returnIntent);
+    finish();
   }
 
   @Override
   public void onPointerCaptureChanged(boolean hasCapture) {
 
   }
-
-//
-//  @Override
-//  public void onTrimStarted() {
-//
-//  }
-//
-//  @Override
-//  public void getResult(final Uri uri) {
-//    mProgressDialog.cancel();
-////    K4lVideoTrimmerModule.exposedCallback.invoke(uri.getPath());
-////    var name = K4lVideoTrimmerModule.getName();
-//    runOnUiThread(new Runnable() {
-//      @Override
-//      public void run() {
-//        Toast.makeText(TrimmerActivity.this, getString(R.string.video_saved_at, uri.getPath()), Toast.LENGTH_LONG).show();
-//      }
-//    });
-////    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-////    intent.setDataAndType(uri, "video/mp4");
-////    startActivity(intent);
-//    finish();
-//  }
-//
-//  @Override
-//  public void cancelAction() {
-//    mProgressDialog.cancel();
-//    mVideoTrimmer.destroy();
-////    finish();
-//  }
-//
-//  @Override
-//  public void onError(String message) {
-//
-//  }
-//
-//  @Override
-//  public void onPointerCaptureChanged(boolean hasCapture) {
-//
-//  }
 }
