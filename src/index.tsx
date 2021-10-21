@@ -1,4 +1,4 @@
-import { Alert, NativeModules, Platform } from 'react-native';
+import { NativeModules, Platform } from 'react-native';
 
 const LINKING_ERROR =
   `The package 'react-native-k4l-video-trimmer' doesn't seem to be linked. Make sure: \n\n` +
@@ -21,11 +21,10 @@ export function multiply(a: number, b: number): Promise<number> {
   return K4lVideoTrimmer.multiply(a, b);
 }
 
-export function navigateToTrimmer(uri: string): void  {
+export function navigateToTrimmer(uri: string): void {
   try {
     return K4lVideoTrimmer.navigateToTrimmer(uri);
   } catch (error) {
-    console.log(JSON.stringify(error))
+    console.log(JSON.stringify(error));
   }
-  
 }
