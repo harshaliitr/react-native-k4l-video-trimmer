@@ -51,7 +51,7 @@ export default function App() {
       <Button
         onPress={() =>
           navigateToTrimmer(
-            'file:///storage/emulated/0/Download/intro.mp4'
+            "file:///storage/emulated/0/Download/intro.mp4"
           ).then((r) => console.log(r))
         }
         title={'Click me'}

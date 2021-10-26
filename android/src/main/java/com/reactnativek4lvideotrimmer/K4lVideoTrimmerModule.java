@@ -1,17 +1,33 @@
 package com.reactnativek4lvideotrimmer;
 
+import static com.gowtham.library.utils.TrimVideo.TRIM_VIDEO_OPTION;
+import static com.gowtham.library.utils.TrimVideo.TRIM_VIDEO_URI;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
+//import androidx.activity.result.ActivityResultLauncher;
+//import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 
+import com.facebook.react.ReactActivity;
 import com.facebook.react.bridge.ActivityEventListener;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.module.annotations.ReactModule;
+// import com.google.gson.Gson;
+import com.gowtham.library.ui.ActVideoTrimmer;
+import com.gowtham.library.utils.TrimType;
+import com.gowtham.library.utils.TrimVideo;
+import com.gowtham.library.utils.TrimVideoOptions;
 
 @ReactModule(name = K4lVideoTrimmerModule.NAME)
 public class K4lVideoTrimmerModule extends ReactContextBaseJavaModule implements ActivityEventListener {
@@ -51,8 +67,6 @@ public class K4lVideoTrimmerModule extends ReactContextBaseJavaModule implements
   @Override
   public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
       //handle cancel and error codes
-    Log.d("TAG", "onActivityResult: data");
-    Log.d("TAG", data.getDataString());
     this.promise.resolve(data.getDataString());
   }
 

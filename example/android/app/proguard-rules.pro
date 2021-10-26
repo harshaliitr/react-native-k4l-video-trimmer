@@ -8,3 +8,7 @@
 #   http://developer.android.com/guide/developing/tools/proguard.html
 
 # Add any project specific keep options here:
+
+-dontwarn com.gowtham.library**
+-keep class com.gowtham.library** { *; }
+-keep interface com.gowtham.library** { *; }
