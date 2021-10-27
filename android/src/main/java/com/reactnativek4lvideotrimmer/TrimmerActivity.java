@@ -34,14 +34,11 @@ public class TrimmerActivity extends AppCompatActivity {
       if (result.getResultCode() == Activity.RESULT_OK &&
         result.getData() != null) {
         Uri uri = Uri.parse(TrimVideo.getTrimmedVideoPath(result.getData()));
-        Log.d("TAG", "Trimmed path:: " + uri);
-        Log.d("TAG", "Trimmed path:: " + result.getData());
         Intent returnIntent = new Intent();
         returnIntent.setDataAndType(uri, "video/mp4");
         setResult(1, returnIntent);
         finish();
       } else {
-        Log.d("TAG", "videoTrimResultLauncher data is null");
         Intent returnIntent = new Intent();
         returnIntent.putExtra("error", 1);
         returnIntent.setDataAndType(null, "video/mp4");
@@ -57,16 +54,17 @@ public class TrimmerActivity extends AppCompatActivity {
 
     Intent extraIntent = getIntent();
     Uri path = Uri.parse(extraIntent.getStringExtra("EXTRA_VIDEO_PATH"));
+    Long duration = Long.valueOf(extraIntent.getStringExtra("VIDEO_TRIM_DURATION"));
     this.videoUri = String.valueOf(path);
-    openTrimActivity(this.videoUri);
+    openTrimActivity(this.videoUri, duration);
   }
 
-  private void openTrimActivity(String path) {
+  private void openTrimActivity(String path, Long duration) {
      TrimVideo.activity(String.valueOf(path))
       .setTrimType(TrimType.FIXED_DURATION)
       .setHideSeekBar(true)
-      .setFixedDuration(10)
-      .setTitle("select maximum 10 seconds")
+      .setFixedDuration(duration)
+      .setTitle("select maximum " + duration + " seconds")
       .start(TrimmerActivity.this, startForResult);
   }
 }

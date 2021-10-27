@@ -54,12 +54,13 @@ public class K4lVideoTrimmerModule extends ReactContextBaseJavaModule implements
     }
 
     @ReactMethod
-    void navigateToTrimmer(@NonNull String uri, Promise promise) {
+    void navigateToTrimmer(@NonNull String uri, @NonNull String duration, Promise promise) {
         this.promise = promise;
         Activity activity = getCurrentActivity();
         if (activity != null) {
           Intent intent = new Intent(activity, TrimmerActivity.class);
           intent.putExtra("EXTRA_VIDEO_PATH", uri);
+          intent.putExtra("VIDEO_TRIM_DURATION", duration);
           activity.startActivityForResult(intent, 1);
         }
     }

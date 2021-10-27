@@ -21,9 +21,9 @@ export function multiply(a: number, b: number): Promise<number> {
   return K4lVideoTrimmer.multiply(a, b);
 }
 
-export function navigateToTrimmer(uri: string): Promise<string> {
+export function navigateToTrimmer(uri: string, duration: string): Promise<string> {
   // try {
-  return K4lVideoTrimmer.navigateToTrimmer(uri);
+  return K4lVideoTrimmer.navigateToTrimmer(uri, duration);
   // } catch (error) {
   //   console.log(JSON.stringify(error));
   // }
