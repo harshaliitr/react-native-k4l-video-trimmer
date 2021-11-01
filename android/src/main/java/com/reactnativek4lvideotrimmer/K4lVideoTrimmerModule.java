@@ -31,43 +31,48 @@ import com.gowtham.library.utils.TrimVideoOptions;
 
 @ReactModule(name = K4lVideoTrimmerModule.NAME)
 public class K4lVideoTrimmerModule extends ReactContextBaseJavaModule implements ActivityEventListener {
-    public static final String NAME = "K4lVideoTrimmer";
-    static final String EXTRA_VIDEO_PATH = "EXTRA_VIDEO_PATH";
-    Promise promise;
+  public static final String NAME = "K4lVideoTrimmer";
+  static final String EXTRA_VIDEO_PATH = "EXTRA_VIDEO_PATH";
+  Promise promise;
 
-    public K4lVideoTrimmerModule(ReactApplicationContext reactContext) {
-      super(reactContext);
-      reactContext.addActivityEventListener(this);
-    }
+  public K4lVideoTrimmerModule(ReactApplicationContext reactContext) {
+    super(reactContext);
+    reactContext.addActivityEventListener(this);
+  }
 
-    @Override
-    @NonNull
-    public String getName() {
-        return NAME;
-    }
+  @Override
+  @NonNull
+  public String getName() {
+    return NAME;
+  }
 
-    // Example method
-    // See https://reactnative.dev/docs/native-modules-android
-    @ReactMethod
-    public void multiply(int a, int b, Promise promise) {
-        promise.resolve(a * b);
-    }
+  // Example method
+  // See https://reactnative.dev/docs/native-modules-android
+  @ReactMethod
+  public void multiply(int a, int b, Promise promise) {
+    promise.resolve(a * b);
+  }
 
-    @ReactMethod
-    void navigateToTrimmer(@NonNull String uri, @NonNull String duration, Promise promise) {
-        this.promise = promise;
-        Activity activity = getCurrentActivity();
-        if (activity != null) {
-          Intent intent = new Intent(activity, TrimmerActivity.class);
-          intent.putExtra("EXTRA_VIDEO_PATH", uri);
-          intent.putExtra("VIDEO_TRIM_DURATION", duration);
-          activity.startActivityForResult(intent, 1);
-        }
+  @ReactMethod
+  void navigateToTrimmer(@NonNull String uri, @NonNull String duration, Promise promise) {
+    this.promise = promise;
+    Activity activity = getCurrentActivity();
+    if (activity != null) {
+      Intent intent = new Intent(activity, TrimmerActivity.class);
+      intent.putExtra("EXTRA_VIDEO_PATH", uri);
+      intent.putExtra("VIDEO_TRIM_DURATION", duration);
+      activity.startActivityForResult(intent, 1);
     }
+  }
 
   @Override
   public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
-      //handle cancel and error codes
+    if (promise == null) {
+      return;
+    }
+    if (data == null) {
+      this.promise.resolve(null);
+    }
     this.promise.resolve(data.getDataString());
   }
 
