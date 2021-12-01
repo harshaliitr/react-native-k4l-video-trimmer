@@ -73,7 +73,11 @@ public class K4lVideoTrimmerModule extends ReactContextBaseJavaModule implements
     if (data == null) {
       this.promise.resolve(null);
     }
-    this.promise.resolve(data.getDataString());
+    String dataString = data.getDataString();
+    if (dataString.isEmpty()) {
+      this.promise.resolve(null);
+    }
+    this.promise.resolve(dataString);
   }
 
   @Override
