@@ -41,7 +41,7 @@ public class TrimmerActivity extends AppCompatActivity {
       } else {
         Intent returnIntent = new Intent();
         returnIntent.putExtra("error", 1);
-        returnIntent.setDataAndType(null, "video/mp4");
+        returnIntent.setDataAndType("", "video/mp4");
         setResult(2, returnIntent);
         finish();
       }
@@ -61,6 +61,7 @@ public class TrimmerActivity extends AppCompatActivity {
 
   private void openTrimActivity(String path, Long duration) {
      TrimVideo.activity(String.valueOf(path))
+      .setCompressOption(new CompressOption(30,"1M",1200,1200))
       .setTrimType(TrimType.FIXED_DURATION)
       .setHideSeekBar(true)
       .setFixedDuration(duration)
