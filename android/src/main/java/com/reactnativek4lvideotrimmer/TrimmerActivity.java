@@ -33,15 +33,15 @@ public class TrimmerActivity extends AppCompatActivity {
     result -> {
       if (result.getResultCode() == Activity.RESULT_OK &&
         result.getData() != null) {
-        Uri uri = Uri.parse(TrimVideo.getTrimmedVideoPath(result.getData()));
+        String uri = TrimVideo.getTrimmedVideoPath(result.getData());
         Intent returnIntent = new Intent();
-        returnIntent.setDataAndType(uri, "video/mp4");
+        returnIntent.putExtra("URI", uri);
         setResult(1, returnIntent);
         finish();
       } else {
         Intent returnIntent = new Intent();
         returnIntent.putExtra("error", 1);
-        returnIntent.setDataAndType(null, "video/mp4");
+        returnIntent.putExtra("URI", "NULL");
         setResult(2, returnIntent);
         finish();
       }
