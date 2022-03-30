@@ -11,11 +11,16 @@ npm install react-native-k4l-video-trimmer
 ## Usage
 
 ```js
-import { multiply } from "react-native-k4l-video-trimmer";
+import { navigateToTrimmer } from "react-native-k4l-video-trimmer";
 
 // ...
 
-const result = await multiply(3, 7);
+navigateToTrimmer(this.state.video.uri, this.state.duration).then(trimmedUrl => {
+        if (trimmedUrl == null) {
+          return;
+        }
+        this.props.onTrim(trimmedUrl);
+      }).catch(error => console.log('trimmed url error', error))
 ```
 
 ## Contributing
