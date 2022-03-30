@@ -1,6 +1,6 @@
 # react-native-k4l-video-trimmer
 
-Whatsapp like trimmer for react native android
+Whatsapp like trimmer for react native android. Uses https://github.com/a914-gowtham/android-video-trimmer internally. Thanks to https://github.com/a914-gowtham for creating this awesome android package:  
 
 ## Installation
 
